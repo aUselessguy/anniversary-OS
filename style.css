@@ -1,0 +1,47 @@
+:root { --win-gray: #c0c0c0; --win-blue: #000080; --win-teal: #008080; --win-shadow: #808080; }
+
+body { background-color: var(--win-teal); font-family: 'Tahoma', sans-serif; margin: 0; overflow: hidden; height: 100vh; user-select: none; }
+
+/* RITUAL */
+#ritual-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999999; transition: opacity 2s; cursor: none; }
+#flashlight { position: absolute; width: 100%; height: 100%; pointer-events: none; background: radial-gradient(circle 200px at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.95) 70%, #000 100%); z-index: 10; }
+.ritual-number { position: absolute; font-size: 80px; color: #1a0000; font-weight: bold; cursor: pointer; z-index: 5; }
+.ritual-number:hover { color: #ff0000; text-shadow: 0 0 15px #f00; }
+#ritual-inventory { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 20; }
+.ritual-slot { width: 50px; height: 70px; border-bottom: 3px solid #300; font-size: 50px; color: #f00; text-align: center; font-family: monospace; }
+
+/* WINDOWS UI */
+.window { position: absolute; background: var(--win-gray); border: 2px solid; border-color: #fff var(--win-shadow) var(--win-shadow) #fff; padding: 2px; box-shadow: 2px 2px 10px rgba(0,0,0,0.5); z-index: 5000; }
+.title-bar { background: linear-gradient(90deg, var(--win-blue), #1084d0); color: #fff; padding: 3px 5px; display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; cursor: move; }
+.close-btn { background: var(--win-gray); border: 1px solid #000; width: 16px; height: 14px; text-align: center; line-height: 12px; cursor: pointer; color: #000; }
+.window-body { padding: 10px; background: var(--win-gray); }
+button { background: var(--win-gray); border: 2px solid; border-color: #fff var(--win-shadow) var(--win-shadow) #fff; padding: 5px 15px; cursor: pointer; font-family: 'Tahoma'; font-weight: bold; }
+button:active { border-color: var(--win-shadow) #fff #fff var(--win-shadow); }
+
+/* ICONS */
+.icon { position: absolute; width: 75px; text-align: center; color: white; text-decoration: none; font-size: 12px; text-shadow: 1px 1px #000; padding: 5px; cursor: pointer; }
+.icon-img { font-size: 35px; display: block; margin-bottom: 5px; }
+.icon:hover { background: rgba(255,255,255,0.1); }
+
+/* TASKBAR */
+.taskbar { position: fixed; bottom: 0; width: 100%; height: 35px; background: var(--win-gray); border-top: 2px solid #fff; display: flex; align-items: center; z-index: 9999; }
+.start-btn { font-weight: bold; padding: 2px 10px; border: 2px solid; border-color: #fff var(--win-shadow) var(--win-shadow) #fff; margin-left: 5px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+#start-menu { position: absolute; bottom: 33px; left: 0; width: 180px; background: var(--win-gray); border: 2px solid; border-color: #fff var(--win-shadow) var(--win-shadow) #fff; display: none; flex-direction: column; }
+.menu-item { padding: 8px; border-bottom: 1px solid #999; font-size: 13px; color: #000; }
+.menu-item:hover { background: var(--win-blue); color: #fff; }
+.clock { margin-left: auto; border: 2px inset #fff; padding: 0 10px; margin-right: 5px; font-size: 12px; height: 22px; display: flex; align-items: center; }
+
+/* BALLOONS */
+.baloes-container { position: absolute; top: -50px; width: 100%; height: 50px; pointer-events: none; }
+.balloon-wrapper { position: absolute; animation: float 2s infinite alternate; }
+.balloon { width: 25px; height: 35px; border-radius: 50%; }
+.string { width: 1px; height: 30px; background: #fff; margin: 0 auto; }
+@keyframes float { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+
+/* MINES UI */
+#mines-grid { display: grid; grid-template-columns: repeat(10, 20px); border: 2px inset #fff; background: #808080; }
+.cell { width: 20px; height: 20px; border: 2px outset #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; }
+.cell.revealed { border: 1px solid #999; background: #c0c0c0; }
+.mines-header { display: flex; justify-content: space-between; background: #c0c0c0; padding: 5px; border: 2px inset #fff; margin-bottom: 5px; }
+.mines-counter { background: #000; color: red; font-family: monospace; font-size: 20px; padding: 0 5px; }
+.mines-face { border: 2px outset #fff; cursor: pointer; width: 25px; text-align: center; }
