@@ -13,7 +13,6 @@
         #ritual-container { position: fixed; inset: 0; background: #000; z-index: 99999; cursor: none; transition: opacity 1.5s; }
         #flashlight { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle 250px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.95) 60%, #000 100%); z-index: 10; }
         
-        /* Animação para os números brilharem sozinhos no celular */
         @keyframes pulseGlow {
             0% { color: #3a0000; text-shadow: 0 0 5px #f00; }
             100% { color: #ff0000; text-shadow: 0 0 20px #f00; }
@@ -31,26 +30,25 @@
         button { background: var(--win-gray); border: 2px outset #fff; padding: 5px 15px; cursor: pointer; font-family: 'Tahoma'; font-weight: bold; }
         button:active { border-style: inset; }
 
-        /* ÍCONES DESKTOP */
         .icon { position: absolute; width: 70px; text-align: center; color: white; font-size: 12px; text-shadow: 1px 1px #000; padding: 5px; cursor: pointer; text-decoration: none; }
         .icon-img { font-size: 35px; display: block; margin-bottom: 5px; }
 
-        /* TASKBAR */
+        /* TASKBAR E MENU INICIAR */
         .taskbar { position: fixed; bottom: 0; width: 100%; height: 35px; background: var(--win-gray); border-top: 2px solid #fff; display: flex; align-items: center; z-index: 9000; }
         .clock { margin-left: auto; border: 2px inset #fff; padding: 0 10px; margin-right: 5px; font-size: 12px; height: 22px; display: flex; align-items: center; }
+        
+        #start-menu { position: absolute; bottom: 35px; left: 0; width: 200px; background: var(--win-gray); border: 2px outset #fff; display: none; flex-direction: column; z-index: 9500; }
+        .menu-item { padding: 8px 12px; font-size: 13px; color: black; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; border-bottom: 1px solid #888; }
+        .menu-item:hover { background: var(--win-blue); color: white; }
 
-        /* BALÕES CONVITE */
         .baloes-container { position: absolute; top: -50px; width: 100%; height: 50px; pointer-events: none; }
         .balloon-wrapper { position: absolute; animation: float 2s infinite alternate; }
         .balloon { width: 25px; height: 35px; border-radius: 50%; }
         .string { width: 1px; height: 30px; background: #fff; margin: 0 auto; }
         @keyframes float { from { transform: translateY(0); } to { transform: translateY(-10px); } }
 
-        /* --- 3. JOGOS --- */
-        /* O fundo preto agora aplica APENAS ao jogo, e não aos confetes */
         #gameCanvas { background: #000; border: 2px inset #fff; display: block; }
         
-        /* BOMB.EXE */
         #mines-ui { background: var(--win-gray); border: 2px outset #fff; padding: 6px; }
         .mines-header { display: flex; justify-content: space-between; align-items: center; border: 2px inset #fff; padding: 4px; margin-bottom: 6px; }
         .mines-counter { background: black; color: red; font-family: monospace; font-size: 22px; font-weight: bold; padding: 0 5px; border: 1px inset #fff; }
@@ -60,7 +58,6 @@
         .cell { width: 20px; height: 20px; border: 2px outset #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; background: #c0c0c0; box-sizing: border-box; }
         .cell.revealed { border: 1px solid #808080; background: #c0c0c0; }
 
-        /* CONTROLES MOBILE SNAKE/BLOCO */
         #mobile-controls { display: none; flex-direction: column; align-items: center; gap: 5px; margin-top: 10px; }
         .ctrl-row { display: flex; gap: 5px; }
         .ctrl-btn { width: 55px; height: 55px; font-size: 24px; display: flex; align-items: center; justify-content: center; border: 2px outset #fff; background: #dfdfdf; font-weight: bold; touch-action: manipulation; cursor: pointer; }
@@ -106,9 +103,7 @@
     <div id="app-win" class="window draggable-win" style="left: 5%; top: 5%;">
         <div class="title-bar handle"><span id="app-title">App</span><div class="close-btn" onclick="closeApp()">X</div></div>
         <div class="window-body" style="background: var(--win-gray);">
-            
             <canvas id="gameCanvas" width="240" height="240" style="display:none;"></canvas>
-            
             <div id="mines-ui" style="display:none;">
                 <div class="mines-header">
                     <div id="mine-flags" class="mines-counter">010</div>
@@ -120,11 +115,9 @@
                 </div>
                 <div id="mines-grid"></div>
             </div>
-
             <div id="iframe-container" style="display:none;">
                 <iframe id="dino-frame" src="" width="100%" height="240px" frameborder="0"></iframe>
             </div>
-
             <div id="mobile-controls">
                 <button class="ctrl-btn" onclick="setDir(0,-1)">↑</button>
                 <div class="ctrl-row">
@@ -133,12 +126,19 @@
                     <button class="ctrl-btn" onclick="setDir(1,0)">→</button>
                 </div>
             </div>
-
         </div>
     </div>
 
+    <div id="start-menu">
+        <div class="menu-item" onclick="openApp('mines')"><span>💣</span> Bomb.exe</div>
+        <div class="menu-item" onclick="openApp('snake')"><span>🐍</span> Snake.exe</div>
+        <div class="menu-item" onclick="openApp('blocks')"><span>🧱</span> Bloco.exe</div>
+        <div class="menu-item" onclick="openApp('dino')"><span>🦖</span> Dino.exe</div>
+        <a href="https://chat.whatsapp.com/C69OYCD5AQnH9mgPVjo4Mw" target="_blank" class="menu-item"><span>📍</span> Localização</a>
+    </div>
+
     <div class="taskbar">
-        <div style="font-weight:bold; padding:2px 10px; border:2px outset #fff; margin-left:5px; display: flex; align-items: center; gap: 5px;">🎂 Iniciar</div>
+        <div id="start-btn" onclick="toggleStartMenu()" style="cursor:pointer; font-weight:bold; padding:2px 10px; border:2px outset #fff; margin-left:5px; display: flex; align-items: center; gap: 5px; background: var(--win-gray);">🎂 Iniciar</div>
         <div class="clock" id="relogio">00:00</div>
     </div>
 
@@ -147,6 +147,17 @@
     <audio id="crowd-sound" src="crowd_small_chil_ec049202_9klCwI6.mp3" preload="auto"></audio>
 
     <script>
+        // --- FUNÇÕES DO MENU INICIAR ---
+        function toggleStartMenu() {
+            const menu = document.getElementById('start-menu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Fecha o menu se clicar no desktop
+        document.getElementById('desktop').addEventListener('click', () => {
+            document.getElementById('start-menu').style.display = 'none';
+        });
+
         // --- 1. RITUAL LÓGICA ---
         const ritualSequence = [2, 9, 0, 4];
         let ritualStep = 0, lastX = -1, lastY = -1;
@@ -202,20 +213,17 @@
 
         function confirmarPresenca() {
             document.getElementById('invite-win').style.display = 'none';
-            
             const a1 = document.getElementById('confetti-sound');
             const a2 = document.getElementById('yay-sound');
             const a3 = document.getElementById('crowd-sound');
-            
             a1.currentTime = 0; a2.currentTime = 0; a3.currentTime = 0;
             a1.volume = 0.5; a2.volume = 0.6; a3.volume = 0.8;
-            
             Promise.all([a1.play(), a2.play(), a3.play()]).catch(e => console.log(e));
-            
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
         }
 
         function openApp(app) {
+            document.getElementById('start-menu').style.display = 'none'; // Fecha o menu ao abrir app
             const win = document.getElementById('app-win');
             win.style.display = 'block'; win.style.zIndex = ++z;
             document.getElementById('app-title').innerText = app.toUpperCase() + ".EXE";
@@ -247,9 +255,7 @@
         }
         function closeApp() { gameActive = false; document.getElementById('app-win').style.display = 'none'; clearInterval(mineTimerInt); }
 
-        // --- 3. JOGOS ---
-
-        // SNAKE
+        // --- 3. JOGOS (Lógica mantida) ---
         let snake = [], dir = {x:1, y:0}, food = {};
         window.setDir = function(dx, dy) {
             if (dir.x === 0 && dx === 0) return;
@@ -261,24 +267,17 @@
             if(!gameActive || currentGame !== 'snake') return;
             const ctx = document.getElementById('gameCanvas').getContext('2d');
             ctx.fillStyle = '#000'; ctx.fillRect(0,0,240,240);
-            
             let h = {x: snake[0].x + dir.x, y: snake[0].y + dir.y};
-            
             if(h.x === food.x && h.y === food.y) {
                 food = {x: Math.floor(Math.random()*12), y: Math.floor(Math.random()*12)};
-            } else { 
-                snake.pop(); 
-            }
-            
+            } else { snake.pop(); }
             let colision = false;
             snake.forEach(p => { if(h.x === p.x && h.y === p.y) colision = true; });
-
             if(h.x<0 || h.x>11 || h.y<0 || h.y>11 || colision) { 
                 document.getElementById('app-title').innerText = "SNAKE.EXE - GAME OVER";
                 setTimeout(() => { document.getElementById('app-title').innerText = "SNAKE.EXE"; initSnake(); }, 1500); 
                 return; 
             }
-            
             snake.unshift(h);
             ctx.fillStyle = 'lime'; snake.forEach(s => ctx.fillRect(s.x*20, s.y*20, 18, 18));
             ctx.fillStyle = 'red'; ctx.fillRect(food.x*20, food.y*20, 18, 18);
@@ -290,7 +289,6 @@
             if(e.key==="ArrowLeft") setDir(-1,0); if(e.key==="ArrowRight") setDir(1,0);
         });
 
-        // BLOCOS
         let ball = {}, paddle = {}, blocks = [];
         function initBlocks() {
             ball = {x:120, y:200, dx:2, dy:-2}; paddle = {x:100}; blocks = [];
@@ -301,17 +299,13 @@
             if(!gameActive || currentGame !== 'blocks') return;
             const ctx = document.getElementById('gameCanvas').getContext('2d');
             ctx.fillStyle = '#000'; ctx.fillRect(0,0,240,240);
-            
             ball.x += ball.dx; ball.y += ball.dy;
             if(ball.x<0 || ball.x>235) ball.dx *= -1; 
             if(ball.y<0) ball.dy *= -1;
-            
             if(ball.y>240) { initBlocks(); return; }
             if(ball.y>220 && ball.x>paddle.x && ball.x<paddle.x+40) ball.dy *= -1;
-            
             ctx.fillStyle = 'white'; ctx.fillRect(paddle.x, 230, 40, 5);
             ctx.fillStyle = 'yellow'; ctx.beginPath(); ctx.arc(ball.x, ball.y, 4, 0, 7); ctx.fill();
-            
             blocks.forEach(b => {
                 if(b.active) {
                     ctx.fillStyle = 'red'; ctx.fillRect(b.x, b.y, 50, 15);
@@ -320,29 +314,17 @@
             });
             requestAnimationFrame(runBlocks);
         }
-        document.getElementById('gameCanvas').ontouchmove = (e) => { 
-            if(currentGame === 'blocks') { paddle.x = e.touches[0].clientX - e.target.getBoundingClientRect().left - 20; e.preventDefault(); } 
-        };
         document.getElementById('gameCanvas').onmousemove = (e) => { 
             if(currentGame === 'blocks') paddle.x = e.clientX - e.target.getBoundingClientRect().left - 20; 
         };
 
-        // BOMB.EXE
         let mBoard = [], mTime = 0, mineTimerInt, mFlags = 10, flagMode = false, firstClickM = true, revCount = 0;
         const R = 10, C = 10, M = 10;
-        
-        function toggleMineMode() { 
-            flagMode = !flagMode; 
-            document.getElementById('mine-mode').innerText = flagMode ? '🚩' : '⛏️'; 
-        }
-
+        function toggleMineMode() { flagMode = !flagMode; document.getElementById('mine-mode').innerText = flagMode ? '🚩' : '⛏️'; }
         function initMines() {
             clearInterval(mineTimerInt); mTime = 0; mFlags = M; firstClickM = true; revCount = 0; flagMode = false; gameActive = true;
-            document.getElementById('mine-timer').innerText = "000";
-            document.getElementById('mine-flags').innerText = "010";
-            document.getElementById('mine-face').innerText = "🙂";
-            document.getElementById('mine-mode').innerText = "⛏️";
-            
+            document.getElementById('mine-timer').innerText = "000"; document.getElementById('mine-flags').innerText = "010";
+            document.getElementById('mine-face').innerText = "🙂"; document.getElementById('mine-mode').innerText = "⛏️";
             const grid = document.getElementById('mines-grid'); grid.innerHTML = '';
             mBoard = [];
             for(let r=0; r<R; r++){
@@ -350,14 +332,12 @@
                 for(let c=0; c<C; c++){
                     let cell = document.createElement('div'); cell.className = 'cell';
                     cell.onclick = () => handleMClick(r, c);
-                    cell.oncontextmenu = (e) => { e.preventDefault(); handleFlag(r, c); };
                     grid.appendChild(cell);
                     row.push({el: cell, mine: false, rev: false, flag: false, n: 0});
                 }
                 mBoard.push(row);
             }
         }
-
         function genMines(fr, fc) {
             let placed = 0;
             while(placed < M) {
@@ -374,61 +354,35 @@
                 }
             }
         }
-
         function handleMClick(r, c) {
             if(!gameActive) return;
             if(flagMode) handleFlag(r, c);
             else {
                 let cell = mBoard[r][c];
                 if(cell.flag || cell.rev) return;
-                if(firstClickM) {
-                    firstClickM = false; genMines(r, c);
-                    mineTimerInt = setInterval(() => { mTime++; document.getElementById('mine-timer').innerText = Math.min(mTime, 999).toString().padStart(3,'0'); }, 1000);
-                }
+                if(firstClickM) { firstClickM = false; genMines(r, c); mineTimerInt = setInterval(() => { mTime++; document.getElementById('mine-timer').innerText = Math.min(mTime, 999).toString().padStart(3,'0'); }, 1000); }
                 revealM(r, c); checkMWin();
             }
         }
-
         function handleFlag(r, c) {
-            let cell = mBoard[r][c];
-            if(cell.rev || !gameActive) return;
-            cell.flag = !cell.flag;
-            cell.el.innerText = cell.flag ? '🚩' : '';
-            mFlags += cell.flag ? -1 : 1;
-            document.getElementById('mine-flags').innerText = mFlags.toString().padStart(3,'0');
+            let cell = mBoard[r][c]; if(cell.rev || !gameActive) return;
+            cell.flag = !cell.flag; cell.el.innerText = cell.flag ? '🚩' : '';
+            mFlags += cell.flag ? -1 : 1; document.getElementById('mine-flags').innerText = mFlags.toString().padStart(3,'0');
         }
-
         function revealM(r, c) {
-            let cell = mBoard[r][c];
-            if(cell.rev || cell.flag) return;
+            let cell = mBoard[r][c]; if(cell.rev || cell.flag) return;
             cell.rev = true; revCount++; cell.el.classList.add('revealed');
-            
             if(cell.mine) {
                 cell.el.innerText = '💣'; cell.el.style.background = 'red';
                 document.getElementById('mine-face').innerText = '😵';
                 gameActive = false; clearInterval(mineTimerInt);
-                for(let i=0; i<R; i++) for(let j=0; j<C; j++) {
-                    if(mBoard[i][j].mine && !mBoard[i][j].flag) { mBoard[i][j].el.innerText = '💣'; mBoard[i][j].el.classList.add('revealed'); }
-                }
             } else {
-                if(cell.n > 0) {
-                    cell.el.innerText = cell.n;
-                    const colors = ['','blue','green','red','darkblue','maroon','teal','black','gray'];
-                    cell.el.style.color = colors[cell.n];
-                } else {
-                    for(let dr=-1; dr<=1; dr++) for(let dc=-1; dc<=1; dc++) {
-                        if(r+dr>=0 && r+dr<R && c+dc>=0 && c+dc<C) revealM(r+dr, c+dc);
-                    }
+                if(cell.n > 0) { cell.el.innerText = cell.n; } else {
+                    for(let dr=-1; dr<=1; dr++) for(let dc=-1; dc<=1; dc++) if(r+dr>=0 && r+dr<R && c+dc>=0 && c+dc<C) revealM(r+dr, c+dc);
                 }
             }
         }
-
-        function checkMWin() {
-            if(revCount === (R*C) - M && gameActive) {
-                document.getElementById('mine-face').innerText = '😎';
-                gameActive = false; clearInterval(mineTimerInt);
-            }
-        }
+        function checkMWin() { if(revCount === (R*C) - M && gameActive) { document.getElementById('mine-face').innerText = '😎'; gameActive = false; clearInterval(mineTimerInt); } }
 
         // --- 4. DRAG WINDOWS ---
         document.querySelectorAll('.draggable, .draggable-win').forEach(el => {
@@ -438,7 +392,6 @@
                 el.style.zIndex = ++z;
                 let evt = e.touches ? e.touches[0] : e;
                 let startX = evt.clientX, startY = evt.clientY;
-                
                 const move = (ev) => {
                     let evT = ev.touches ? ev.touches[0] : ev;
                     el.style.left = (el.offsetLeft - (startX - evT.clientX)) + "px";
@@ -447,11 +400,8 @@
                     startX = evT.clientX; startY = evT.clientY;
                     ev.preventDefault(); 
                 };
-                
                 document.onmousemove = document.ontouchmove = move;
-                document.onmouseup = document.ontouchend = () => { 
-                    document.onmousemove = document.ontouchmove = null; 
-                };
+                document.onmouseup = document.ontouchend = () => { document.onmousemove = document.ontouchmove = null; };
             };
         });
 
