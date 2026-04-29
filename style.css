@@ -1,0 +1,35 @@
+:root { --win-gray: #c0c0c0; --win-blue: #000080; --win-teal: #008080; --win-shadow: #808080; }
+body { background: var(--win-teal); margin: 0; overflow: hidden; height: 100vh; font-family: sans-serif; }
+
+/* RITUAL */
+#ritual-container { position: fixed; inset: 0; background: #000; z-index: 99999; cursor: none; transition: 1s; }
+#flashlight { position: absolute; inset: 0; background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.2) 0%, #000 80%); }
+.ritual-number { position: absolute; font-size: 60px; color: #1a0000; font-weight: bold; z-index: 5; }
+#ritual-inventory { position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
+.ritual-slot { width: 40px; height: 60px; border-bottom: 2px solid #300; color: red; font-size: 40px; text-align: center; }
+
+/* WINDOWS */
+.window { position: absolute; background: var(--win-gray); border: 2px solid; border-color: #fff var(--win-shadow) var(--win-shadow) #fff; }
+.title-bar { background: var(--win-blue); color: #fff; padding: 3px; display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; }
+.window-body { padding: 10px; display: flex; flex-direction: column; align-items: center; }
+.close-btn { background: var(--win-gray); color: #000; border: 1px solid #000; width: 15px; height: 13px; line-height: 11px; text-align: center; cursor: pointer; }
+
+/* ICONS */
+.icon { position: absolute; width: 70px; text-align: center; color: #fff; font-size: 11px; text-shadow: 1px 1px #000; text-decoration: none; }
+.icon-img { font-size: 30px; display: block; }
+
+/* MINES */
+#mines-grid { display: grid; grid-template-columns: repeat(8, 25px); gap: 1px; background: #808080; border: 2px inset #fff; }
+.cell { width: 25px; height: 25px; background: #c0c0c0; border: 2px outset #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
+.cell.revealed { border: 1px solid #888; background: #bbb; }
+
+/* MOBILE CONTROLS */
+#mobile-controls { margin-top: 10px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.ctrl-btn { width: 45px; height: 45px; background: #eee; border: 2px solid #888; font-weight: bold; }
+
+/* TASKBAR */
+.taskbar { position: fixed; bottom: 0; width: 100%; height: 30px; background: var(--win-gray); border-top: 2px solid #fff; display: flex; align-items: center; z-index: 1000; }
+.start-btn { padding: 2px 8px; border: 2px outset #fff; margin-left: 5px; font-size: 12px; font-weight: bold; }
+#start-menu { position: absolute; bottom: 30px; left: 0; width: 150px; background: var(--win-gray); border: 2px outset #fff; display: none; flex-direction: column; }
+.menu-item { padding: 8px; border-bottom: 1px solid #888; font-size: 12px; }
+.clock { margin-left: auto; padding-right: 10px; font-size: 12px; }
